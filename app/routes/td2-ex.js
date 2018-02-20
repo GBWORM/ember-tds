@@ -1,13 +1,20 @@
 import Route from '@ember/routing/route';
-import EmberObject, {computed} from '@ember/object';
+import Ember from 'ember';
+import EmberObject from '@ember/object';
 
 const Listes = EmberObject.extend({
   selectedDispoItemsIds: [],
   selectedIncludedItemsIds: [],
+  includedItems:[],
   selectedDispoItems: Ember.computed('selectedDispoItemsIds.[]', function () {
     return this.get('selectedDispoItemsIds').map(
-      (id)=>this.get('includedItems').findBy('id',id)
+      (id)=>this.get('dispoItems').findBy('id',id)
     );
+  }),
+  selectedIncludedItems:Ember.computed('selectedIncludedItemsIds.[]',function(){
+    return this.get('selectedIncludedItemsIds').map(
+      (id)=>this.get('IncludedItems').findBy('id',id)
+    )
   })
 });
 export default Route.extend({
